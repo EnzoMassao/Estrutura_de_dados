@@ -1,0 +1,16 @@
+class Aluno:
+    def __init__(self,nome,frequencia,mediaGeral):
+        self.nome =nome
+        self.frequencia=frequencia 
+        self.mediaGeral= mediaGeral
+        
+
+    def adicionar(self):
+        print("nome:", self.nome)
+        print("frequencia:" , self.frequencia)
+        print("media geral:", self.mediaGeral)
+
+joao = Aluno("joao", 76, 7.8)
+maria = Aluno("maria", 80,8.5)
+joao.adicionar()
+maria.adicionar()
