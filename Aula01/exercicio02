@@ -1,0 +1,17 @@
+class Produto:
+    def __init__(self,nome,preco,quantidade):
+        self.nome =nome
+        self.preco=preco
+        self.quantidade= quantidade
+        
+
+    def adicionar(self):
+        print("nome:", self.nome)
+        print("valor:" , self.preco)
+        print("quantidade:", self.quantidade)
+
+maca = Produto("maca", 10.00, 5)
+banana = Produto("banana", 7.00, 3)
+
+maca.adicionar()
+banana.adicionar()
