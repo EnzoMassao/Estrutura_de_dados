@@ -1,17 +1,15 @@
-class Produto:
-    def __init__(self,nome,preco,quantidade):
-        self.nome =nome
-        self.preco=preco
-        self.quantidade= quantidade
-        
+class Contato:
+    def __init__(self, nome, telefone, email):
+        self.nome= nome
+        self.telefone= telefone
+        self.email= email
 
-    def adicionar(self):
-        print("nome:", self.nome)
-        print("valor:" , self.preco)
-        print("quantidade:", self.quantidade)
+rodrigo= Contato("rodrigo", 55123456789, "rodrigo@gmail.com")
+breno= Contato("breno", 55987654321, "brenoo@gmail.com")
+ana= Contato("ana", 55123459876, "ana@gmail.com")
+agenda =[rodrigo, breno, ana]
 
-maca = Produto("maca", 10.00, 5)
-banana = Produto("banana", 7.00, 3)
-
-maca.adicionar()
-banana.adicionar()
+for contato in agenda:
+    print("Nome:", contato.nome)
+    print("telefone:", contato.telefone)
+    print("email:", contato.email)
