@@ -1,16 +1,20 @@
-class Aluno:
-    def __init__(self,nome,frequencia,mediaGeral):
-        self.nome =nome
-        self.frequencia=frequencia 
-        self.mediaGeral= mediaGeral
-        
-
-    def adicionar(self):
+class Produto:
+    def __init__(self, nome, preco, quantidade):
+        self.nome= nome
+        self.preco= preco
+        self.quantidade= quantidade
+    def imprimir(self):
         print("nome:", self.nome)
-        print("frequencia:" , self.frequencia)
-        print("media geral:", self.mediaGeral)
-
-joao = Aluno("joao", 76, 7.8)
-maria = Aluno("maria", 80,8.5)
-joao.adicionar()
-maria.adicionar()
+        print("valor:" , self.preco)
+        print("quantidade:", self.quantidade)
+    def calcular_total(self):
+        total = self.preco *self.quantidade
+        return total
+cebola= Produto("cebola", 7.99, 10)
+tomate= Produto("tomate", 7.30, 1)
+cebola.imprimir()
+tomate.imprimir()
+total_cebola = cebola.calcular_total()
+print("valor total do produto:", total_cebola)
+total_tomate = tomate.calcular_total()
+print("valor total do produto:", total_tomate)
