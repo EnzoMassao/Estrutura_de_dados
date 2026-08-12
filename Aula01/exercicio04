@@ -1,0 +1,26 @@
+class Livro:
+    def __init__(self, titulo, autor, n_paginas):
+        self.titulo= titulo
+        self.autor= autor
+        self.n_paginas= n_paginas
+        
+    def imprimir(self):
+        print("titulo do livro:", self.titulo)
+        print("autor do livro:", self.autor)
+        print("Numero de paginas:", self.n_paginas)
+    def qtd_paginas(self):
+        if self.n_paginas > 100:
+            print("livro longo")
+        else:
+            print("livro curto")
+
+metamorfose= Livro("Metamorfose","Franz Kafka",1444)
+o_pequeno_principe = Livro("O Pequeno Príncipe ","Antoine de Saint-Exupéry", 96 )
+noites_branca = Livro("Noites Brancas", "Fiodor Dostoievski", 144)
+
+metamorfose.imprimir()
+metamorfose.qtd_paginas()
+o_pequeno_principe.imprimir()
+o_pequeno_principe.qtd_paginas()
+noites_branca.imprimir()
+noites_branca.qtd_paginas()
