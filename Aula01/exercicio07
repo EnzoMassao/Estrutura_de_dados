@@ -1,0 +1,30 @@
+class Aluno:
+    def __init__(self,nome, notas):
+            self.nome= nome
+            self.notas =notas
+
+
+    def imprimir(self):
+        print("Aluno:", self.nome)
+        print("notas:", self.notas)
+
+    def calcular_media(self):
+        media= sum(self.notas)/ len(self.notas)
+        return media
+        
+    def verificar_aprovacao(self):
+        media =self.calcular_media()
+        if media >=7:
+            print("Aprovado")
+        else:
+            print("Reprovado")
+
+
+
+aluno1 = Aluno("luiz", [4,7,9])
+aluno2 = Aluno("lais", [9,9,9])
+aluno3 = Aluno("lucas", [9,2,9])
+turma =[aluno1, aluno2, aluno3]
+for aluno in turma:
+    print("Nome:", aluno.nome)
+    print("Média:", aluno.calcular_media())
