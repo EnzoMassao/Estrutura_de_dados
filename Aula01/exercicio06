@@ -1,0 +1,27 @@
+class Aluno:
+    def __init__(self,nome, notas):
+        self.nome= nome
+        self.notas =notas
+
+    def imprimir(self):
+        print("Aluno:", self.nome)
+        print("notas:", self.notas)
+
+    def calcular_media(self):
+        media= sum(self.notas)/ len(self.notas)
+        return media
+        
+    def verificar_aprovacao(self):
+        media =self.calcular_media()
+        if media >=7:
+            print("Aprovado")
+        else:
+            print("Reprovado")
+patrick = Aluno("patrick", [10,5,7])
+jane= Aluno("Jane", [4,6,6.4])
+patrick.imprimir()
+patrick.verificar_aprovacao()
+print("média:", patrick.calcular_media())
+jane.imprimir()
+jane.verificar_aprovacao()
+print("média:", jane.calcular_media())
