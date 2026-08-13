@@ -1,0 +1,29 @@
+class Funcionario:
+    def __init__(self, nome, salario, cargo):
+        self.nome= nome
+        self.salario= salario
+        self.cargo=cargo
+
+
+    def calcular_bonus(self):
+        if self.cargo =="gerente":
+            bonus= self.salario+(self.salario * 0.10)
+            print("salario com bonus:", bonus)
+            
+        else:
+            bonus= self.salario+(self.salario * 0.05)
+            print("salario com bonus:",bonus)
+
+    def imprimir(self):
+        print("funcionario:",self.nome)
+        print("salaro atual:", self.salario)
+        print("cargo:", self.cargo)
+  
+jorge = Funcionario("jorge", 12968, "gerente")
+fernanda= Funcionario("fernanda", 1621,"caixa")
+jorge.imprimir()
+jorge.calcular_bonus()
+fernanda.imprimir()
+fernanda.calcular_bonus()
+
+
