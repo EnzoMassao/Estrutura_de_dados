@@ -1,0 +1,124 @@
+
+class No:
+    def __init__(self,id,aluno,nota):
+        self.id=id
+        self.aluno =aluno
+        self.nota= nota
+        self.proximo =None
+        self.anterior= None
+
+def menu():
+    print("1 - inserir aluno")
+    print("2- listar aluno")
+    print("3- remover aluno")
+    print("4- mostrar situacao")
+    print("5- listar classificação")
+    print("6- sair")
+    opcao= int(input("digite a opcao:"))
+    return opcao
+
+def inserir_aluno(lista,id, aluno, nota):
+    novo= No(id,aluno,nota)
+    if lista is None:
+        lista =novo
+        return lista
+    novo.proximo =lista
+    lista.anterior =novo
+    lista =novo
+    return lista
+
+
+def lista_alunos(lista):
+    aux = lista
+    while aux != None:
+        if aux.anterior == None:
+            print("Anterior: None")
+        else:
+            print("anterior:", aux.anterior.aluno)
+        print("aluno:", aux.aluno)
+        if aux.proximo== None:
+            print("proximo :None")
+        else:
+            print("proximo:", aux.proximo.aluno)
+        aux= aux.proximo
+
+
+def remover_aluno(lista,id):
+    aux= lista
+    if lista is None:
+        print("lista vazia")
+        return lista
+    while aux != None:
+        if aux.id == id:
+            if aux.proximo == aux.anterior == None:
+                lista=None
+                return lista
+            elif aux == lista:
+                lista =lista.proximo
+                lista.anterior =None
+                return lista
+            elif aux.proximo == None:
+                aux.anterior.proximo =None
+                return lista
+            aux.proximo.anterior= aux.anterior
+            aux.anterior.proximo= aux.proximo
+            return lista
+        aux= aux.proximo
+
+def buscar_aluno(lista,id):
+    aux =lista
+    if lista is None:
+        print("lista vazia.")
+        return lista
+    while aux != None:
+        if aux.id == id:
+            print("aluno:", aux.aluno)
+            return lista
+        aux = aux.proximo
+
+def alunos_classificado(lista):
+    aux= lista
+    if lista is None:
+        print("lista vazia")
+        return lista
+    while aux != None:
+        if aux.nota >= 7:
+            print("Aprovado.")
+           
+        elif aux.nota <= 6.9 and aux.nota >= 4:
+            print("Exame.")
+            
+        else:
+            print("reprovado.")
+        aux = aux.proximo
+    
+
+
+def main():
+    lista =None
+    opcao = 0
+
+
+    while opcao != 6:
+        opcao = menu()
+
+        if opcao ==1:
+            id= int(input("digite o id:"))
+            aluno = input("digite o nome:")
+            nota= float(input("digite sua nota final"))
+            lista= inserir_aluno(lista,id, aluno, nota)
+        elif opcao ==2:
+            lista_alunos(lista)
+        elif opcao ==3:
+            id= int(input("digite o nome de quem vc quer remover:"))
+            lista= remover_aluno(lista,id)
+        elif opcao ==4:
+            id= int(input("digite o nome do aluno que deseja:"))
+            buscar_aluno(lista,id)
+        elif opcao ==5:
+            alunos_classificado(lista)
+        
+
+
+
+main()
