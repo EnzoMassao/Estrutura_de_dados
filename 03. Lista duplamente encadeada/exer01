@@ -1,7 +1,7 @@
 class No:
-    def __init(self,id,aluno):
-        self.id=id
-        self.aluno =aluno
+    def __init__(self,identificador,nome):
+        self.identificador=identificador
+        self.nome =nome
         self.proximo =None
         self.anterior= None
 def menu():
@@ -12,47 +12,52 @@ def menu():
     opcao = int(input("Digite qual opcao deseja:"))
     return opcao
 
-def inserir_no(No,identificador,aluno):
-    novo_no= No(identificador,aluno)
+def inserir_no(lista,identificador,nome):
+    novo_no= No(identificador,nome)
     if lista is None:
         lista =novo_no
         return lista
+    
     novo_no.proximo =lista
     lista.anterior =novo_no
     lista =novo_no
     return lista
 
 def listar_no(lista):
-    if aux.anterior == None:
-        print("Anterior: None")
-    else:
-        print("anterior:", aux.anterior.aluno)
-        print("aluno:", aux.aluno)
-    if aux.proximo== None:
-        print("proximo :None")
-    else:
-        print("proximo:", aux.proximo.aluno)
-    aux= aux.proxim
+    aux = lista
+    if lista is None:
+        print("lista vazia")
+    while aux != None:
+        if aux.anterior == None:
+            print("Anterior: None")
+        else:
+            print("anterior:", aux.anterior.nome)
+        print("nome:", aux.nome)
+        if aux.proximo == None:
+            print("proximo :None")
+        else:
+            print("proximo:", aux.proximo.nome)
+        aux = aux.proximo
 
-
-def verificar(lista,id,aluno):
+def verificar(lista,identificador):
     aux =lista
     if lista is None:
         print("lista vazia.")
         return lista
     while aux != None:
-        if aux.id == id:
-            print("aluno:", aux.aluno)
+        if aux.identificador == identificador:
+            print("nome:", aux.nome)
             return lista
-        aux.proximo
+        aux = aux.proximo
+        
 
 def remover_no(lista,identificador):
     aux= lista
     if lista is None:
         print("lista vazia")
         return lista
-    while lista != None:
-        if aux.id == id:
+    while aux != None:
+        if aux.identificador == identificador:
             if aux.proximo == aux.anterior == None:
                 lista=None
                 return lista
@@ -65,7 +70,7 @@ def remover_no(lista,identificador):
                 return lista
             aux.proximo.anterior= aux.anterior
             aux.anterior.proximo= aux.proximo
-            return list
+            return lista
         aux= aux.proximo
 
 
@@ -79,10 +84,10 @@ def main():
         opcao = menu()
 
         if opcao ==1:
-            id= int(input("digite o id:"))
+            identificador= int(input("digite o identificador:"))
             nome = input("digite o nome:")
             
-            lista= inserir_no(lista,id, nome)
+            lista= inserir_no(lista,identificador, nome)
 
 
 
@@ -90,11 +95,11 @@ def main():
             listar_no(lista)
         elif opcao ==3:
             identificador= int(input("digite o nome de quem vc quer remover:"))
-            lista= remover_no(lista,identificador):
+            lista= remover_no(lista,identificador)
 
         elif opcao ==4:
-            id= int(input("digite o nome que deseja:"))
-            verificar(lista,id)
+            identificador= int(input("digite o nome que deseja:"))
+            verificar(lista,identificador)
 
 
         elif opcao ==5:
