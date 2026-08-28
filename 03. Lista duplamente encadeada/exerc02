@@ -1,0 +1,178 @@
+class No:
+    def __init__(self,id,nome,artista,duracao):
+        self.id=id
+        self.nome= nome
+        self.artista=artista
+        self.duracao= duracao
+        self.proximo= None
+        self.anterior=None
+
+def menu():
+    print("1 -Adicionar música na playlist")
+    print("2- Listar todas as músicas")
+    print("3- Remover música")
+    print("4- Buscar música (por nome ou por artista)")
+    print("5-Avançar para a próxima música / Voltar para a música anterior(usando os ponteiros da lista)")
+    print("6- sair")
+    opcao= int(input("digite a opcao:"))
+    return opcao
+def adicionar_musica(lista,id,nome,artista,duracao):
+    nova = No(id,nome,artista,duracao)
+    if lista is None:
+        lista = nova
+        return lista
+    nova.proximo = lista
+    lista.anterior = nova
+    lista = nova
+    return lista
+def listar(lista):
+    aux= lista
+    while aux != None:
+        if aux.anterior == None:
+            print("Anterior: None")
+        else:
+            print("anterior:", aux.anterior.nome)
+        print("musica:", aux.nome)
+        if aux.proximo == None:
+            print("proxima: None")
+        else:
+            print("proxima:", aux.proximo.nome)
+        aux=aux.proximo
+
+def remover(lista,id):
+    aux = lista
+    if lista is None:
+        print("lista vazia")
+        return lista
+    while aux != None:
+        if aux.id == id:
+            if aux.anterior == None and aux.proximo == None:
+                lista = None
+                return lista
+            elif aux.anterior == None:
+                lista = aux.proximo
+                lista.anterior = None
+                return lista
+            elif aux.proximo == None:
+                aux.anterior.proximo = None
+                return lista
+            else:
+                aux.anterior.proximo = aux.proximo
+                aux.proximo.anterior = aux.anterior
+                return lista
+        aux = aux.proximo
+    print("música não encontrada")
+    return lista
+
+
+
+def avancar(atual):
+    if atual is None:
+        print("Nenhuma música tocando.")
+        return atual
+    if atual.proximo is None:
+        print("Já é a última música da playlist.")
+        return atual
+    atual = atual.proximo
+    print("Tocando agora:", atual.nome, "-", atual.artista)
+    return atual
+
+def voltar(atual):
+    if atual is None:
+        print("Nenhuma música tocando.")
+        return atual
+    if atual.anterior is None:
+        print("Já é a primeira música da playlist.")
+        return atual
+    atual = atual.anterior
+    print("Tocando agora:", atual.nome, "-", atual.artista)
+    return atual
+def buscar_por_nome(lista, nome):
+    aux = lista
+    while aux != None:
+        if aux.nome == nome:
+            return aux
+        aux = aux.proximo
+    return None
+
+def buscar_por_artista(lista, artista):
+    aux = lista
+    while aux != None:
+        if aux.artista == artista:
+            return aux
+        aux = aux.proximo
+    return None
+
+def buscar_musica(lista):
+    if lista is None:
+        print("lista vazia")
+        return
+    print("1 - Buscar por nome")
+    print("2 - Buscar por artista")
+    opcao = int(input("Digite a opção: "))
+    if opcao == 1:
+        nome = input("Digite o nome: ")
+        encontrada = buscar_por_nome(lista, nome)
+    elif opcao == 2:
+        artista = input("Digite o artista: ")
+        encontrada = buscar_por_artista(lista, artista)
+    else:
+        print("opção inválida")
+        return
+    if encontrada != None:
+        print("música:", encontrada.nome, "-", encontrada.artista)
+    else:
+        print("música não encontrada")
+def main():
+    lista = None
+    atual = None
+    opcao= 0
+
+    while opcao != 6:
+        opcao = menu()
+
+        if opcao == 1:
+            id = int(input("Digite o id da música: "))
+            nome = input("Digite o nome da música: ")
+            artista = input("Digite o artista: ")
+            duracao = float(input("Digite a duração (em minutos): "))
+
+            lista = adicionar_musica(lista, id, nome, artista, duracao)
+
+            if atual is None:
+                atual = lista
+
+        elif opcao == 2:
+            listar(lista)
+
+        elif opcao == 3:
+            id = int(input("Digite o id da música a remover: "))
+            if atual != None and atual.id == id:
+                atual = None
+            lista = remover(lista, id)
+        elif opcao == 4:
+            buscar_musica(lista)
+
+        elif opcao == 5:
+            if atual is None:
+                print("Nenhuma música tocando. Adicione uma música primeiro.")
+            else:
+                sub_opcao = int(input("1 - Avançar . 2 - Voltar: "))
+                if sub_opcao == 1:
+                    atual = avancar(atual)
+                elif sub_opcao == 2:
+                    atual = voltar(atual)
+                else:
+                    print("Opção inválida.")
+
+        elif opcao == 6:
+            print("Encerrando o programa...")
+
+        else:
+            print("Opção inválida. Tente novamente.")
+
+
+main()
+    
+
+
