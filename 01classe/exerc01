@@ -1,0 +1,47 @@
+class Produto:
+    def __init__(self,nome, preco,qtd_estoque):
+        self.nome=nome
+        self.preco=preco
+        self.qtd_estoque= qtd_estoque
+
+    def imprirmir(self):
+        print("produto:", self.nome)
+        print("valor:", self.preco)
+        print("Quantidade no estoque:", self.qtd_estoque)
+
+    def adicionar_produto(self,quantidade):
+        self.qtd_estoque+=quantidade
+
+    def remover_produto(self,quantidade):
+        if quantidade <= self.qtd_estoque:
+            self.qtd_estoque-=quantidade
+        else:
+            print("falta de estoque!")
+    def calcular_total(self):
+        valor_total= self.qtd_estoque*self.preco
+        return valor_total
+    
+leite =Produto("leite", 5.8, 200)
+ovo =Produto("Ovo", 20, 400)
+cafe= Produto("Cafe", 23.99 , 30)
+
+leite.imprirmir()
+leite.adicionar_produto(100)
+leite.remover_produto(80)
+
+total_leite= leite.calcular_total()
+print("valor total atualizado:", total_leite)
+
+ovo.imprirmir()
+ovo.adicionar_produto(1)
+ovo.remover_produto(500)
+total_ovo= ovo.calcular_total()
+print("valor total atualizado:", total_ovo)
+
+cafe.imprirmir()
+cafe.adicionar_produto(100)
+cafe.remover_produto(12)
+total_cafe= cafe.calcular_total()
+print("valor total atualizado:" ,total_cafe)
+
+    
