@@ -49,6 +49,18 @@ def verificar(lista,identificador):
             print("nome:", aux.nome)
             return lista
         aux = aux.proximo
+def verificar_nome(lista, nome):
+    aux =lista
+    if lista is None:
+
+        print("lista vazia.")
+        return lista
+    while aux != None:
+        if aux.nome == nome:
+            print("nome:", aux.nome)
+            return lista
+        aux = aux.proximo
+
         
 
 def remover_no(lista,identificador):
@@ -72,7 +84,11 @@ def remover_no(lista,identificador):
             aux.anterior.proximo= aux.proximo
             return lista
         aux= aux.proximo
-
+def menu_buscar():
+    print("1- buscar por identificacao:")
+    print("2- buscar nome:")
+    opcao = int(input("digite a opcao"))
+    return opcao
 
 
 def main():
@@ -89,8 +105,6 @@ def main():
             
             lista= inserir_no(lista,identificador, nome)
 
-
-
         elif opcao ==2:
             listar_no(lista)
         elif opcao ==3:
@@ -98,10 +112,13 @@ def main():
             lista= remover_no(lista,identificador)
 
         elif opcao ==4:
-            identificador= int(input("digite o nome que deseja:"))
-            verificar(lista,identificador)
-
-
+            opcao_busca = menu_buscar()
+            if opcao_busca == 1:
+                identificador= int(input("digite o nome que deseja:"))
+                verificar(lista,identificador)
+            elif opcao_busca == 2:
+                nome= (input("digite o nome que deseja:"))
+                verificar_nome(lista, nome)
         elif opcao ==5:
             print("encerrando")
 
