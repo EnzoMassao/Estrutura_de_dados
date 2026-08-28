@@ -1,0 +1,42 @@
+class ContaBancaria:
+    def __init__(self, titular, numero_conta, saldo):
+        self.titular = titular
+        self.numero_conta = numero_conta
+        self.saldo = saldo
+    def imprimir(self):
+        print("titular:", self.titular)
+        print("numero da conta:", self.numero_conta)
+        print("saldo:", self.saldo)
+    def consultar_saldo(self):
+        return self.saldo
+    def depositar(self, valor):
+        if valor <= 0:
+            print("valor de deposito invalido!")
+        else:
+            self.saldo += valor
+    def sacar(self, valor):
+        if valor <= 0:
+            print("valor de saque invalido!")
+        elif valor > self.saldo:
+            print("saldo insuficiente!")
+        else:
+            self.saldo -= valor
+    def transferir(self, valor, conta_destino):
+        if valor <= 0:
+            print("valor de transferencia invalido!")
+        elif valor > self.saldo:
+            print("saldo insuficiente!")
+        else:
+            self.saldo -= valor
+            conta_destino.saldo += valor
+enzo = ContaBancaria("Enzo", "1001", 500)
+marina = ContaBancaria("Marina", "1002", 200)
+enzo.imprimir()
+enzo.depositar(300)
+print("saldo atualizado:", enzo.consultar_saldo())
+marina.imprimir()
+marina.sacar(1000)
+print("saldo atualizado:", marina.consultar_saldo())
+enzo.transferir(250, marina)
+print("saldo do Enzo apos transferencia:", enzo.consultar_saldo())
+print("saldo da Marina apos transferencia:", marina.consultar_saldo())
