@@ -1,0 +1,226 @@
+class No:
+    def __init__(self,codigo,nome,idade,prioridade):
+        self.codigo= codigo
+        self.nome= nome
+        self.idade= idade
+        self.prioridade= prioridade
+        self.proximo =None
+        self.anterior= None
+
+def menu():
+    print("1-cadastrar um paciente")
+    print("2- remover um paciente")
+    print("3- localizar um paciente")
+    print("4- atendender um paciente mais urgente")
+    print("5- listar os pacientes do primeiro ao ultimo")
+    print("6- listar todos os pacientes pela prioridade")
+    print("7-listar todos os pacientes do ultimo ao primeiro")
+    print("8- informar quantos pacientes aguardam o atendimento")
+    print("9- sair")
+    opcao= int(input("digite a opcao que deseja:"))
+    return opcao
+
+
+def cadastrar(lista,codigo, nome,idade,prioridade):
+    novo= No(codigo,nome,idade,prioridade)
+    if lista== None:
+        lista= novo
+        return lista
+    novo.proximo = lista
+    lista.anterior= novo
+    lista= novo
+    return lista
+
+def remover(lista, codigo):
+    aux= lista
+    if lista is None:
+        print("lista vazia.")
+        return lista
+
+    while aux != None:
+        if aux.codigo== codigo:
+            if aux.proximo ==None == aux.anterior== None:
+                lista = None
+            elif aux.anterior == None:
+                lista=aux.proximo
+                lista.anterior= None
+            elif aux.proximo == None:
+                aux.anterior.proximo =None
+            else:
+                aux.proximo.anterior= aux.anterior
+                aux.anterior.proximo= aux.proximo
+            return lista
+        else:
+            aux= aux.proximo
+    print("paciente nao encontrado")
+    return lista
+        
+        
+
+
+
+def localizar(lista,codigo):
+    aux= lista
+    if lista is None:
+        print("lista vazia")
+        return lista
+    while aux != None:
+        if aux.codigo ==codigo:
+            print("paciente", aux.codigo)
+            print("nome:", aux.nome)
+            print("idade:", aux.idade)
+            print("prioridel:", aux.prioridade)
+            return lista
+        else:
+            aux= aux.proximo
+    print("paciente nao encontrado")
+    return lista
+
+def mais_urgente(lista):
+    ordem =["Emergencia","Muito urgente","Urgente", "Pouco Urgente", "Nao Urgente"]
+    aux= lista
+    i=0
+    codigo_encontrado = None
+    while i <5 and codigo_encontrado == None:
+        nivel_atual = ordem[i]
+        aux= lista
+        while aux != None and codigo_encontrado ==None:
+            if aux.prioridade == nivel_atual:
+                codigo_encontrado =aux.codigo
+            else:
+                aux=aux.proximo
+        i +=1
+    if codigo_encontrado != None:
+        lista= remover(lista, codigo_encontrado)
+    else:
+        print("nao tem pacientes")
+    return lista
+def listar_primeiros_ultimo(lista):
+    aux = lista
+    if lista is None:
+        print("lista vazia")
+        return
+    while aux !=None:
+        print("codigo", aux.codigo)
+        print("nome:", aux.nome)
+        print("idade" , aux.idade)
+        print("prioridde:", aux.prioridade)
+        aux= aux.proximo
+
+def lista_por_prioridade(lista, prioridade):
+    aux= lista
+    if lista is None:
+        print("lista vazia")
+        return
+    encontrou = False
+    while aux !=None:
+        if aux.prioridada ==prioridade:
+            print("codigo", aux.codigo)
+            print("nome:", aux.nome)
+            print("idade" , aux.idade)
+            print("prioridde:", aux.prioridade)
+            encontrou =True
+        aux= aux.proximo
+        if encontrou == False:
+            print("nenhum paciente com essa prioridade")
+
+def listar_ult_pri(lista):
+    aux= lista
+    if lista is None:
+        print("lista vazia")
+        return
+    while aux.proximo !=None:
+        aux= aux.proximo
+    while aux != None:
+            print("codigo", aux.codigo)
+            print("nome:", aux.nome)
+            print("idade" , aux.idade)
+            print("prioridde:", aux.prioridade)
+            aux= aux.anterior
+def aguardam(lista):
+    aux= lista
+    contador = 0
+    while aux != None:
+        contador +=1
+        aux= aux.proximo
+    print("pacientes aguaradando", contador)
+    return contador
+
+
+def main():
+    opcao= 0
+    lista= None
+
+    while opcao != 9:
+        opcao = menu()
+        if opcao ==1:
+            codigo= int(input("digite o codigo do paciente:"))
+            nome = input("digite o nome do paciente:")
+            idade= int(input("digite a idade do paciente:"))
+            print("digite qual a sua prioridade")
+            print("1-Emergência;")
+            print("2- Muito urgente;")
+            print("3-Urgente;")
+            print("4-Pouco urgente;")
+            print("5- Não urgente.")
+            prioridade =None
+            opcaoPrior = int(input("qual é a sua prioriade?"))
+            while opcaoPrior != 5:
+                if opcaoPrior ==1:
+                    prioridade = "Emergencia"
+                elif opcaoPrior == 2:
+                    prioridade = "Muito urgente"
+                elif opcaoPrior == 3:
+                    prioridade = "Urgente"
+                elif opcaoPrior == 4:
+                    prioridade = "Pouco Urgente"
+                elif opcaoPrior == 5:
+                    prioridade = "Nao Urgente"
+            lista= cadastrar(lista,codigo,nome,idade,prioridade)
+
+
+        elif opcao ==2:
+            codigo = int(input("digite o codigo do paciente que ja foi atendido:"))
+            lista= remover(lista,codigo)
+
+        elif opcao ==3:
+            codigo =int(input("digite o codigo do paciente:"))
+            lista= localizar(lista,codigo)
+
+        elif opcao == 4:
+            lista= mais_urgente(lista)
+        elif opcao == 5:
+            listar_primeiros_ultimo(lista)
+        elif opcao == 6:
+            print("qual a prioridade")
+            print("1-Emergência;")
+            print("2- Muito urgente;")
+            print("3-Urgente;")
+            print("4-Pouco urgente;")
+            print("5- Não urgente.")
+            opcaoPrior = int(input("qual é a sua prioriade?"))
+            while opcaoPrior != 5:
+                if opcaoPrior ==1:
+                    prioridade = "Emergencia"
+                elif opcaoPrior == 2:
+                    prioridade = "Muito urgente"
+                elif opcaoPrior == 3:
+                    prioridade = "Urgente"
+                elif opcaoPrior == 4:
+                    prioridade = "Pouco Urgente"
+                elif opcaoPrior == 5:
+                    prioridade = "Nao Urgente"
+            lista= cadastrar(lista,codigo,nome,idade,prioridade)
+        elif opcao== 7:
+            listar_ult_pri(lista)
+        elif opcao == 8:
+            aguardam(lista)
+
+
+
+        elif opcao == 9:
+            print("saindo")
+
+main()
+
+
