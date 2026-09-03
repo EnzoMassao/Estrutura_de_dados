@@ -1,0 +1,240 @@
+class No:
+    def __init__(self,matricula,nome, notaFinal):
+        self.matricula = matricula
+        self.nome= nome
+        self.situacao= True
+        self.notaFinal= notaFinal
+        self.proximo = None
+
+def menu():
+    print("1- cadastrar aluno:")
+    print("2- listar todos os alunos cadastrados")
+    print("3- listar alunos ativos")
+    print("4- listar apenas alunos desativos")
+    print("5- buscar aluno pela matriculas")
+    print("6- alterar nota final")
+    print("7- alterar a situacao")
+    print("8- remover aluno da lista")
+    print("9- informar quantidade de alunos cadastrados")
+    print("10- calcular media das turmas")
+    print("11- calcular a media dos alunos ativos no sistema")
+    print("12- sair")
+    opcao = int(input("digite a opcao:"))
+    return opcao
+
+def cadastrar(lista,matricula,nome,notaFinal):
+    nova= No(matricula,nome,notaFinal)
+    if lista is None:
+        
+        return nova
+    aux= lista
+    while aux.proximo != None:
+        aux= aux.proximo
+    aux.proximo= nova
+    return lista
+
+
+
+def listar_ativos(lista):
+    if lista is None:
+        print("nenhum cadastrado.")
+        return
+    aux= lista
+    while aux != None:
+        if aux.situacao== True:
+            print("matricula=", aux.matricula, "nome=", aux.nome, "notaFinal=", aux.notaFinal)
+        aux = aux.proximo
+def listar(lista):
+    if lista is None:
+        print("lista vazia")
+        return
+    aux = lista
+    while aux != None:
+        if aux.anterior == None:
+            print("Anterior: None")
+        else:
+            print("anterior:", aux.anterior.nome)
+        print("aluno:", aux.nome)
+        if aux.proximo== None:
+            print("proximo :None")
+        else:
+            print("proximo:", aux.proximo.nome)
+        aux= aux.proximo
+def listar_desativados(lista):
+    
+    if lista is None:
+        print("nenhum cadastrado.")
+        return
+    aux= lista
+    while aux != None:
+        if aux.situacao== False:
+            print("matricula=", aux.matricula, "nome=", aux.nome, "notaFinal=", aux.notaFinal)
+        aux = aux.proximo
+def buscar_matricula(lista,matricula):
+    aux= lista
+    
+    while aux != None:
+        if aux.matricula ==matricula:
+            return aux
+        aux = aux.proximo
+    return None
+
+def alterar_nota(lista,matricula,nota):
+    aluno= buscar_matricula(lista,matricula)
+    if aluno is None:
+        print("aluno nao existe ")
+        return
+    aluno.notaFinal= nota
+    print("aluno=", aluno.nome, ", nota=", nota)
+
+def alterar_situacao(lista,matricula):
+    aluno= buscar_matricula(lista, matricula)
+    if aluno is None:
+        print("aluno nao existe ")
+        return
+    if aluno.situacao is True:
+        aluno.situacao= False
+    elif aluno.situacao is False:
+        aluno.situacao = True
+    print("situcao alterada")
+
+def remover(lista,matricula):
+    aux =lista
+    if lista is None:
+        print("lista vazia")
+        return lista
+    if lista.matricula ==matricula:
+        print("aluno removido")
+        return lista.proximo
+    anterior =lista
+    aux= lista.proximo
+    while aux != None:
+        if aux.matricula== matricula:
+            anterior.proximo=aux.proximo
+            print("aluno removido")
+            return lista
+        anterior =aux
+        aux= aux.proximo
+    print("aluno nao encontrado")
+    return lista
+
+
+
+            
+def quantidade_aluno(lista):
+    aux = lista
+    total= 0
+    if lista is None:
+        print("lista vazia")
+        return lista
+    while aux != None:
+        total +=1
+        print("total de alunos:", total)
+        aux =aux.proximo
+    print("total de alunos:", total)
+
+    return total
+def calcular_media(lista):
+    aux= lista
+    soma = 0 
+    quantidade = 0
+
+    if lista is None:
+        print("lista vazia")
+
+        return lista
+                
+    while aux != None:
+        soma = soma + aux.notaFinal 
+        quantidade = quantidade + 1
+        aux = aux.proximo
+    media = soma / quantidade
+    print("media=", media)
+    return media
+def media_ativos(lista):
+    aux =lista
+    notaAtivos =0
+    quantidade=0
+    if lista is None:
+        print("lista vazia.")
+
+        return lista
+    while aux != None:
+
+        if aux.situacao is True:
+            notaAtivos +=aux.notaFinal
+            quantidade +=1
+        aux= aux.proximo
+    if quantidade == 0:
+        print("nenhum aluno ativo")
+        return lista
+    media= notaAtivos/ quantidade
+    print("media", media)
+    return media
+    
+
+
+def main():
+    opcao =0
+    lista = None
+    while opcao != 12:
+        opcao = menu()
+        if opcao ==1:
+            matricula= int(input("digite o numero da matricula:"))
+            nome= input("digite o nome do aluno")
+            notaFinal= float(input("digite a sua nota final:"))
+            lista= cadastrar(lista,matricula,nome, notaFinal)
+            print("cadastrado")
+
+        elif opcao == 2:
+            listar(lista)
+
+        elif opcao ==3:
+
+            listar_ativos(lista)
+
+        elif opcao ==4:
+            listar_desativados(lista)
+
+        elif opcao ==5:
+            matricula= int(input("digite a matricula para achar o aluno:"))
+            aluno = buscar_matricula(lista,matricula)
+            if aluno != None:
+                print("aluno", aluno.nome,"matricula",aluno.matricula,"nota:", aluno.notaFinal)
+            else:
+                print("nao encontrado")
+            
+        elif opcao ==6:
+            matricula= int(input("digite a matricula que vc deseja mudar a nota:"))
+            nota= float(input("qual a nova nota:"))
+            alterar_nota(lista,matricula,nota)
+            print("nota alterada")  
+
+        elif opcao == 7:
+            matricula= int(input("digite a matricula que vc deseja mudar a situacao:"))
+            alterar_situacao(lista,matricula)
+
+        elif opcao==8:
+            matricula= int(input("digite a matricula que vc deseja remover:"))
+            lista =remover(lista,matricula)
+
+        elif opcao ==9:
+            quantidade_aluno(lista)
+
+        elif opcao ==10:
+            calcular_media(lista)
+
+        elif opcao == 11:
+            media_ativos(lista)
+
+        elif opcao ==12:
+            print("saindo")
+
+        else:
+            print("opcao invalida")
+
+
+
+main()    
+        
+
