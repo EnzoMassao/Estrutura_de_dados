@@ -1,0 +1,98 @@
+class No:
+    def __init__(self,parada):
+        self.parada=parada
+        self.proximo= None
+        self.anterior=None
+
+
+def inserir_parada(lista,parada):
+    no= No(parada)
+
+
+    if lista is None:
+        no.proximo= no
+        no.anterior= no
+        lista =no
+        return lista
+
+    no.proximo= lista
+    no.anterior= lista.anterior
+    lista.anterior.proximo= no
+    lista.anterior=no
+    lista = no
+    return lista
+
+def remover(lista, parada):
+    aux= lista
+    if lista is None:
+        print("lista vazia")
+        return lista
+    while True:
+        if aux.parada== parada:
+            if aux.proximo== aux:
+                print("unico elemento")
+                return None
+            elif aux ==lista:
+                lista.proximo.anterior=lista.anterior
+                lista.anterior.proximo=lista.proximo
+                lista = lista.proximo
+                return lista
+            else:
+                aux.proximo.anterior= aux.anterior
+                aux.anterior.proximo= aux.proximo
+                return lista
+        elif aux.proximo == lista:
+            print("parada nao encontrada")
+            return lista
+
+
+
+
+def simular(lista,voltas): 
+    if lista is None:
+        print("sem paradas cadastradas")
+        return lista
+    for i in range(voltas):
+        aux= lista
+        inicio= lista
+        while True:
+            print("-", aux.parada) 
+            aux= aux.proximo
+            if aux ==inicio:
+                break
+
+def menu():
+    print("1- inserir")
+    print("2- remover")
+    print("3- simular percurso")
+    print("4-sair")
+
+    opcao= int(input("digite a opcao:"))
+    return opcao
+def main():
+    lista= None
+    opcao = 0
+
+
+    while opcao != 4:
+        opcao = menu()
+
+
+        if opcao ==1:
+            parada= int(input("digite a parada:"))
+            lista= inserir_parada(lista,parada)
+
+        elif opcao ==2:
+            parada= int(input("digite a parada para remover:"))
+            lista= remover(lista,parada)
+        elif opcao ==3:
+            voltas= int(input("quantas volras simular?"))
+            simular(lista,voltas)
+        elif opcao ==4:
+            print("saindo")
+        else:
+            print("opcao invalida")
+
+main()
+    
+    
