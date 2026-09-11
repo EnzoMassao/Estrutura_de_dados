@@ -1,0 +1,77 @@
+05. Pilha e Fila
+class No:
+    def __init__(self, nome):
+        self.nome=nome
+        self.anterior= None
+        self.proximo= None
+
+def inserir(fila_inicio,fila_fim,nome):
+    novo = No(nome)
+    if fila_inicio is None:
+        fila_inicio = novo
+        fila_fim= novo
+        return fila_inicio,fila_fim
+    fila_fim.proximo=novo
+    fila_fim= novo
+    return fila_inicio, fila_fim
+def listar(fila_inicio):
+    aux=fila_inicio
+    contador =1
+    if fila_inicio is None:
+        print("fila vazia")
+        return
+    while aux != None:
+        print("-",contador,"=", aux.nome)
+        contador +=1
+        aux =aux.proximo
+
+def remover(fila_inicio,fila_fim):
+
+    if fila_inicio is None:
+        print("fila vazia")
+        return None, None
+    if fila_inicio == fila_fim:
+        print("unico da fila")
+        print("removido",fila_inicio.nome)
+        
+        return None,None
+    print("removido",fila_inicio.nome)
+    fila_inicio= fila_inicio.proximo
+    fila_inicio.anterior=None
+    aux=fila_inicio
+    contador =0
+    while aux != None:
+
+        contador+=1
+        aux=aux.proximo
+    
+
+    print("ainda restam", contador,"-proximo=", fila_inicio.nome)
+    return fila_inicio,fila_fim
+
+def menu():
+    print("1- inserir")
+    print("2- listar")
+    print("3- remover")
+    print("4- sair")
+    opcao= int(input("digite a opcao:"))
+    return opcao
+def main():
+    opcao =0
+    fila_inicio=None
+    fila_fim =None
+
+    while opcao != 4:
+        opcao= menu()
+        if opcao ==1:
+            nome= input("digite o nome da pessoa:")
+            fila_inicio,fila_fim= inserir(fila_inicio, fila_fim,nome)
+        elif opcao ==2:
+            listar(fila_inicio)
+        elif opcao==3:
+            fila_inicio,fila_fim= remover(fila_inicio,fila_fim)
+        elif opcao ==4:
+            print("saindo..")
+        else:
+            print("opcao invalida")
+main()
