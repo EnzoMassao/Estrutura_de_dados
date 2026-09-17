@@ -1,0 +1,16 @@
+class Retangulo:
+    def __init__(self,largura, altura):
+        self.largura= largura
+        self.altura=altura
+
+    def area(self):
+        area= self.largura *self.altura
+        print(area)
+    def perimetro(self):
+        perimetro= self.largura + self.largura + self.altura + self.altura
+        print(perimetro)
+
+
+retangulo= Retangulo(12,30)
+retangulo.area()
+retangulo.perimetro()
