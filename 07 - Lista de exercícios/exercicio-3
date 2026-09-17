@@ -1,0 +1,18 @@
+class Carro:
+    def __init__(self,marca,modelo,ano):
+        self.marca=marca
+        self.modelo=modelo
+        self.ano= ano
+
+    def ligar(self):
+        print("carro ligado!!")
+    def desligar(self):
+        print("carro desligado!!")
+
+
+carro1= Carro("Toyota", "Sw4", 2022)
+carro02= Carro("BYD", "Dolphin", 2027)
+carro1.ligar()
+carro1.desligar()
+carro02.ligar()
+carro02.desligar()
