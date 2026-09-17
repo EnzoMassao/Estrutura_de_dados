@@ -1,0 +1,50 @@
+class No:
+    def __init__(self,dado):
+        self.dado= dado
+        self.proximo= None
+def inserir(pilha,dado):
+    novo = No(dado)
+    if pilha == None:
+        pilha = novo
+        return pilha
+    novo.proximo= pilha
+    pilha= novo
+    return pilha
+def remover(pilha,dado):
+    aux= pilha
+    carro_atual= None
+    if pilha is None:
+        print("pilha vazia")
+        return pilha
+    while aux != None and carro_atual != dado:
+        carro_atual= aux.dado
+        aux= aux.proximo
+        print("carro removido=", carro_atual)
+    return aux
+    
+def menu():
+
+    print("1-   remover")
+    print("2- sair..   ")
+
+    opcao= int(input("digite a opcao:"))
+    return opcao
+def main():
+    opcao= 0
+    pilha = None
+    for dado in range(1,21):
+        pilha= inserir(pilha,dado)
+    while opcao != 2:
+        opcao = menu()
+        if opcao ==1:
+            dado= int(input( "qual carro vc quer remover:" ))
+            pilha= remover(pilha,dado)
+        elif opcao ==2:
+            print("saindo")
+        else:
+            print("opcao invalida")
+            
+
+
+
+main()
