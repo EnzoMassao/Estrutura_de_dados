@@ -1,0 +1,104 @@
+class No:
+    def __init__(self, jogador):
+        self.jogador= jogador
+        self.proximo= None
+        self.anterior= None
+
+
+def inserir(fila_inicio,fila_fim,jogador):
+    novo = No(jogador)
+    if fila_inicio is None:
+        fila_inicio= novo
+        fila_fim = novo
+        return fila_inicio, fila_fim
+    fila_fim.proximo=novo
+    fila_fim=novo
+    return fila_inicio, fila_fim
+def simular_1rodada(fila_inicio,fila_fim):
+    jogadorAtual= fila_inicio
+
+    if fila_inicio is None:
+        print("fila esta vazia")
+        return None, None
+    if fila_inicio== fila_fim:
+        print("jogou", fila_inicio.jogador)
+        return fila_inicio,fila_fim
+    print("jogou", fila_inicio.jogador)
+    fila_inicio= fila_inicio.proximo
+    fila_fim.proximo= jogadorAtual
+    jogadorAtual.proximo =None
+    fila_fim=jogadorAtual
+    return fila_inicio,fila_fim
+def simular_N_rodadas(fila_inicio,fila_fim,N):
+    if fila_inicio is None:
+        print("fila vazia")
+        return None
+    for i in range(N):
+        fila_inicio,fila_fim= simular_1rodada(fila_inicio,fila_fim,)
+    return fila_inicio, fila_fim
+def mostrar(fila_inicio):
+    aux= fila_inicio
+    contador =1
+    if fila_inicio is None:
+        print("fila vazia")
+        return
+    while aux != None:
+        print("-",contador,"=", aux.jogador)
+        contador +=1
+        aux= aux.proximo
+        
+def proximo(fila_inicio):
+    if fila_inicio is None:
+        print("lista vazia")
+        return
+    else:
+        print("proximo jogador:", fila_inicio.jogador)
+def limpar(fila_inicio,fila_fim):
+    fila_inicio= None
+    fila_fim= None
+    print("fila limpa")
+    return fila_inicio, fila_fim
+
+
+
+
+def menu():
+    print("1- adicionar jogador")
+    print("2- simular uma rodada")
+    print("3- simular varias rodadas")
+    print("4- mostrar fila")
+    print("5- mostrar o proximoa jogar")
+    print("6- limpar")
+    print("7- sair")
+    opcao= int(input("digite a opcao:"))
+    return opcao
+
+def main():
+    opcao= 0
+    fila_inicio=None
+    fila_fim =None
+
+    while opcao != 7:
+        opcao= menu()
+        if opcao ==1:
+            jogador= input("digite o nome do jogador:")
+            fila_inicio,fila_fim= inserir(fila_inicio,fila_fim,jogador)
+
+        elif opcao== 2:
+            fila_inicio,fila_fim=simular_1rodada(fila_inicio,fila_fim)
+        elif opcao==3:
+            N= int(input("digite o numero de rodadas que deseja rodar:"))
+            fila_inicio,fila_fim=simular_N_rodadas(fila_inicio,fila_fim,N)
+        elif opcao ==4:
+            mostrar(fila_inicio)
+        elif opcao ==5:
+            proximo(fila_inicio)
+        elif opcao ==6:
+            fila_inicio,fila_fim= limpar(fila_inicio,fila_fim)
+        elif opcao ==7:
+            print("saindo")
+        else:
+            print("opcao invalida")
+
+
+main()
