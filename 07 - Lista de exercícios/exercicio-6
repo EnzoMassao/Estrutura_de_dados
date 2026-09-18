@@ -1,0 +1,59 @@
+class No:
+    def __init__(self,nome,gols):
+        self.nome= nome
+        self.gols= gols
+        self.proximo = None
+        
+class Lista:
+    def __init__(self):
+        self.cabeca=None
+    def adicionar(self,nome,gols):
+        novo =No(nome,gols)
+        novo.proximo= self.cabeca
+        self.cabeca=novo
+        return
+
+    def adicionar_final(self,nome,gols):
+        novo =No(nome,gols)
+        if self.cabeca is None:
+            self.cabeca=novo
+            return
+        aux= self.cabeca
+        while aux.proximo is not None:
+            aux= aux.proximo
+        aux.proximo= novo
+    
+    def percorrer(self):
+        contador =1 
+        if self.cabeca is None:
+            print("lista vazia")
+            return
+        aux= self.cabeca
+        while aux!= None:
+            print("-", contador, "=", aux.nome)
+            contador +=1
+            aux= aux.proximo
+
+    def media(self):
+        aux= self.cabeca
+        soma=0
+        contador =0
+        if self.cabeca is None:
+            print("lista vazia")
+            return
+        while aux != None:
+            soma += aux.gols
+            contador += 1
+            aux= aux.proximo
+        media= soma/ contador
+        print("a media de gols dos jogadores é=", media)
+
+            
+escalacao= Lista()
+escalacao.adicionar("enzo",67)
+escalacao.adicionar_final("pedro",8)
+escalacao.adicionar("maria",9)
+escalacao.adicionar_final("Marcelo",9)
+escalacao.adicionar("eduarda",4)
+escalacao.media()
+escalacao.percorrer()
