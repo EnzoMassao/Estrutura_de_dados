@@ -1,0 +1,33 @@
+class No:
+    def __init__(self,nome):
+        self.nome= nome
+        self.proximo = None
+        
+class Lista:
+    def __init__(self):
+        self.cabeca=None
+
+    def adicionar(self,nome):
+        novo =No(nome)
+        novo.proximo= self.cabeca
+        self.cabeca=novo
+        return
+    def percorrer(self):
+        contador =1
+        if self.cabeca is None:
+            print("lista vazia")
+            return
+        aux= self.cabeca
+        while aux!= None:
+            print("-", contador, "=", aux.nome)
+            contador +=1
+            aux= aux.proximo
+
+
+
+            
+escalacao= Lista()
+escalacao.adicionar("enzo")
+escalacao.adicionar("maria")
+escalacao.adicionar("eduarda")
+escalacao.percorrer()
