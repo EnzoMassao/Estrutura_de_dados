@@ -1,0 +1,64 @@
+class No:
+    def __init__(self,usuario):
+        self.usuario=usuario
+        self.proximo=None
+        self.anterior= None
+def enfilerar(fila_inicio, fila_fim,usuario):
+    novo= No(usuario)
+    if fila_inicio is None:
+        fila_inicio= novo
+        fila_fim= novo
+        return fila_inicio, fila_fim
+    fila_fim.proximo= novo
+    novo.anterior=fila_fim
+    fila_fim= novo
+    return fila_inicio,fila_fim
+
+def desenfilerar(fila_inicio,fila_fim):
+    if fila_inicio is None:
+        print("fila vazia")
+        return fila_inicio,fila_fim
+    if fila_inicio == fila_fim:
+        fila_inicio= None
+        fila_fim= None
+        return fila_inicio,fila_fim
+    fila_inicio= fila_inicio.proximo
+    fila_inicio.anterior=None
+    return fila_inicio, fila_fim
+def listar(fila_inicio):
+    aux= fila_inicio
+    contador =1
+    if fila_inicio is None:
+        print("pilha vazia")
+        return
+    while aux is not None:
+        print(contador,"-", aux.usuario)
+        contador +=1
+        aux= aux.proximo
+
+def menu():
+    print("1- inserir na fila")
+    print("2- desenfilerar")
+    print("3- listar fila")
+    print("4-sair")
+    opcao= int(input("digite a ocpao:"))
+    return opcao
+def main():
+    fila_inicio= None
+    fila_fim=None
+    opcao=0
+    while opcao != 4:
+        opcao= menu()
+        if opcao ==1:
+            usuario= input("digite seu nome:")
+            fila_inicio,fila_fim= enfilerar(fila_inicio,fila_fim,usuario)
+        elif opcao==2:
+            fila_inicio,fila_fim= desenfilerar(fila_inicio,fila_fim)
+        elif opcao ==3:
+            listar(fila_inicio)
+        elif opcao==4:
+            print("sair")
+        else:
+            print("opcao invalida")
+
+main()
