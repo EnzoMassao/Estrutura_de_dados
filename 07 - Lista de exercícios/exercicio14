@@ -1,0 +1,99 @@
+class Pilha:
+    def __init__(self,dado):
+        self.dado=dado
+        self.proximo= None
+
+def empilhar(pilha,dado):
+    novo= Pilha(dado)
+    if pilha is None:
+        pilha = novo
+        return pilha
+    novo.proximo=pilha
+    pilha =novo
+    return pilha
+
+def desempilhar(pilha):
+    if pilha is None:
+        print("pilha esta vazia")
+        return None
+    return pilha.proximo
+def listar(pilha):
+    aux= pilha
+    contador =1
+    if pilha is None:
+        print("pilha vazia")
+        return
+    while aux is not None:
+        print(contador , "=", aux.dado)
+        contador +=1
+        aux= aux.proximo
+
+def topo(pilha):
+    if pilha is None:
+        print("pilha vazia")
+        return None
+    return pilha.dado
+def pilha_vazia(pilha):
+    return  pilha is None
+
+def tamanho(pilha):
+    aux= pilha
+    contador =0
+    while aux is not None:
+        contador+=1
+        aux=aux.proximo
+    print("total de elementos na pilha =", contador)
+    return contador
+def media(pilha):
+    aux= pilha
+    soma= 0
+    contador= 0
+    if pilha is None:
+        print("pilha vazia")
+        return None
+    while aux is not None:
+        soma += aux.dado
+        contador +=1
+        aux= aux.proximo
+    return soma/contador
+    
+
+    
+def menu():
+    print("1- empilhar -- 2- desemplihar-- 3-listar-- 4 -topo da pilha -- 5-pilha vazia --6- tamanho-- 7- media --8 sair")
+    opcao = int(input("digite a opcao que deseja:"))
+    return opcao
+def main():
+    opcao =0
+    pilha = None
+
+
+    while opcao != 8:
+        opcao =menu()
+        if opcao ==1:
+            dado= int(input("digite o dado:"))
+            pilha= empilhar(pilha,dado)
+
+        elif opcao ==2:
+            pilha= desempilhar(pilha)
+        elif opcao ==3:
+            listar(pilha)
+        elif opcao ==4:
+           otopo= topo(pilha)
+           if otopo is not None:
+               print("o topo da pilha é", otopo)
+        elif opcao ==5:
+            if pilha_vazia(pilha):
+                print("pilha vazia")
+            else:
+                print("tem dados")
+        elif opcao ==6:
+            tamanho(pilha)
+        elif opcao ==7:
+            Media = media(pilha)
+            print(Media)
+        elif opcao ==8:
+            print("saindo")
+        else:
+            print("opcao invalida")
+main()
