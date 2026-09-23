@@ -1,0 +1,92 @@
+class No:
+    def __init__(self,usuario):
+        self.usuario=usuario
+        self.proximo=None
+        self.anterior=None
+def enfilerar(fila_inicio,fila_fim,usuario):
+    novo= No(usuario)
+    if fila_inicio is None:
+        fila_inicio= novo
+        fila_fim= novo
+        return fila_inicio, fila_fim
+    fila_fim.proximo= novo
+    novo.anterior=fila_fim
+    fila_fim=novo
+    return fila_inicio,fila_fim
+
+def desenfilerar(fila_inicio,fila_fim):
+    if fila_inicio is None:
+        print("fila vazia")
+        return fila_inicio,fila_fim
+    if fila_inicio == fila_fim:
+        fila_inicio=None
+        fila_fim= None
+        return fila_inicio, fila_fim
+    fila_inicio=fila_inicio.proximo
+    fila_inicio.anterior=None
+    return fila_inicio,fila_fim
+def listar(fila_inicio):
+    aux= fila_inicio
+    contador =1
+    if fila_inicio is None:
+        print("fila vazia")
+        return 
+    while aux is not None:
+        print(contador,"-", aux.usuario)
+        contador+=1
+        aux= aux.proximo
+def frente(fila_inicio):
+    
+    if fila_inicio is None:
+        print("fila vazia")
+        return None
+    return fila_inicio.usuario
+def esta_vazia(fila_inicio):
+    return fila_inicio is None
+
+
+def menu():
+    print("1-enfilerar")
+    print("2- desenfilerar")
+    print("3-percorrer")
+    print("4- proximo da fila")
+    print("5- verificar se a tem gente na fila")
+    print("6-sair")
+    opcao = int(input("digite a opcao:"))
+    return opcao
+
+def main():
+    opcao = 0
+    fila_inicio= None
+    fila_fim = None
+
+    while opcao !=6:
+        opcao = menu()
+        if opcao ==1:
+            usuario= input("digite seu nome:")
+            fila_inicio,fila_fim= enfilerar(fila_inicio, fila_fim,usuario)
+        elif opcao == 2:
+            fila_inicio,fila_fim= desenfilerar(fila_inicio,fila_fim)
+
+        elif opcao ==3:
+            listar(fila_inicio)
+        elif opcao ==4:
+            if frente(fila_inicio) is None:
+                print("fila vazia")
+            else:
+                print("usuarios aguardando")
+        elif opcao ==5:
+        
+            if esta_vazia(fila_inicio):
+                print("fila vazia")
+            else:
+                print("usuarios aguardando")
+
+        elif opcao ==6:
+            print("saindoooo")
+
+        else:
+            print("opcao invalida")
+
+main()
+    
