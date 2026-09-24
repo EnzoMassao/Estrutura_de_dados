@@ -1,0 +1,118 @@
+class No:
+    def __init__(self,usuario,tempo):
+        self.usuario=usuario
+        self.tempo= tempo
+        self.proximo= None
+        self.anterior= None
+def enfilerar(fila_inicio,fila_fim,usuario,tempo):
+    novo= No(usuario,tempo)
+    if fila_inicio is None:
+        fila_inicio= novo
+        fila_fim=novo
+        return fila_inicio,fila_fim
+    fila_fim.proximo= novo
+    novo.anterior=fila_fim
+    fila_fim= novo
+    return fila_inicio,fila_fim
+def desenfilerar(fila_inicio,fila_fim):
+    if fila_inicio is None:
+        print("fila vazia")
+        return fila_inicio,fila_fim
+    if fila_inicio == fila_fim:
+        fila_inicio =None
+        fila_fim= None
+        return fila_inicio,fila_fim
+    fila_inicio= fila_inicio.proximo
+    fila_inicio.anterior=None
+    return fila_inicio,fila_fim
+def percorrer(fila_inicio):
+    aux= fila_inicio
+    contador =1
+    if fila_inicio is None:
+        print("fila vazia")
+        return
+    while aux is not None:
+        print(contador , "-", aux.usuario)
+        contador +=1
+        aux= aux.proximo
+def frente(fila_inicio):
+    if fila_inicio is None:
+        print("fila vazia") 
+        return
+    return fila_inicio.usuario
+def estar_vazia(fila_inicio):
+    return fila_inicio is None
+
+def aguardando(fila_inicio):
+    aux= fila_inicio
+    contador =0
+    while aux is not None:
+        print("total de usuarios:", contador)
+        contador +=1
+
+        aux= aux.proximo
+    return contador
+    
+def tempoEspera(fila_inicio):
+    aux= fila_inicio
+    somaTempo=0
+    contador=0
+    if fila_inicio is None:
+        print("fila vazia")
+        return
+    while aux is not None:
+        somaTempo+= aux.tempo
+        contador +=1
+        aux=aux.proximo
+    return somaTempo/contador
+
+def menu():
+    print("1- enfilerar")
+    print("2-desenfilerar")
+    print("3- percorrer")
+    print("4-proximo a ser atendido")
+    print("5-verificar se a fila esta vazia")
+    print("6-quantos estão aguardando")
+    print("7 - media do tempo de espera dos usuarios")
+    print("8-sair")
+    opcao = int(input("digite a opcao"))
+    return opcao
+def main():
+    opcao =0 
+    fila_inicio= None
+    fila_fim=None
+
+
+    while opcao != 8:
+        opcao = menu()
+        if opcao ==1:
+            usuario= input("digite o nome:")
+            tempo = int(input("digite o tempo em minutos:")) 
+            fila_inicio,fila_fim= enfilerar(fila_inicio, fila_fim,usuario,tempo)
+        elif opcao ==2:
+            fila_inicio,fila_fim= desenfilerar(fila_inicio,fila_fim)
+        elif opcao ==3:
+            percorrer(fila_inicio)
+        elif opcao ==4:
+            primeiro= frente(fila_inicio)
+            if primeiro is not None:
+                print("proximo a ser atendido", primeiro)
+        elif opcao ==5:
+            if estar_vazia(fila_inicio):
+                print("fila vazia")
+            else:
+                print("ha pessoas na fila")
+        elif opcao ==6:
+            total=aguardando(fila_inicio)
+            print("total aguardando", total)
+        elif opcao ==7:
+            tempo=tempoEspera(fila_inicio)
+            print("media do tempo é", tempo)
+        elif opcao ==8:
+            print("saindo")
+        else:
+            print("opcao invalida")
+
+main()
+        
+
