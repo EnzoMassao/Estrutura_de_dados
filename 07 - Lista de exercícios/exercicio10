@@ -1,0 +1,61 @@
+class NoDuploCircular:
+    def __init__(self,dado):
+        self.dado=dado
+        self.proximo= None
+        self.anterior = None
+class ListaDuplamenteCircular:
+    def __init__(self):
+        self.cabeca= None
+
+    def adicionar_inicio(self,dado):
+        novo= NoDuploCircular(dado)
+        if self.cabeca is None:
+            novo.proximo= novo
+            novo.anterior= novo
+            self.cabeca=novo
+            return
+        novo.proximo=self.cabeca
+        novo.anterior=self.cabeca.anterior
+        self.cabeca.anterior.proximo= novo
+        self.cabeca.anterior=novo
+        self.cabeca= novo
+    def percorrer(self):
+        aux= self.cabeca
+        
+        if self.cabeca is None:
+            print("lista vazia")
+            return
+        while True:
+            print("-",aux.dado)
+            
+            if aux.proximo== self.cabeca:
+                return
+            aux= aux.proximo
+    def adicionar_final(self,dado):
+        novo= NoDuploCircular(dado)
+        if self.cabeca is None:
+            
+            novo.proximo= novo
+            novo.anterior= novo
+            self.cabeca= novo
+            return
+        novo.proximo=self.cabeca
+        novo.anterior=self.cabeca.anterior
+        self.cabeca.anterior.proximo=novo
+        self.cabeca.anterior=novo
+    def percorrer_frente(self,quantidade):
+        if self.cabeca is None:
+            print("lista vazia")
+            return
+        aux= self.cabeca
+        for i in range (quantidade):
+            print(i+1,"-", aux.dado)
+            aux=aux.proximo
+
+
+equipe= ListaDuplamenteCircular()
+equipe.adicionar_inicio("enzo")
+equipe.adicionar_inicio("maria")
+equipe.adicionar_final("pedro")
+equipe.percorrer_frente(5)
+equipe.percorrer()
