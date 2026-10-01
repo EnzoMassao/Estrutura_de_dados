@@ -1,0 +1,92 @@
+class No:
+    def __init__(self,id,nome,status):
+        self.id=id
+        self.nome=nome
+        self.status=status
+        self.proximo=None
+        self.anterior=None
+class listaduplamente:
+    def __init__(self):
+        self.cabeca=None
+        self.cauda=None
+    def inserir(self,id,nome,status):
+        novo= No(id,nome,status)
+
+        if self.cabeca is None:
+            self.cabeca=novo
+            self.cauda=novo
+            return
+        novo.proximo=self.cabeca
+        self.cabeca.anterior=novo
+        self.cabeca=novo
+    def remover(self,id):
+        if self.cabeca is None:
+            print("lista vazia")
+            return
+        aux= self.cabeca
+        while aux is not None:
+            if aux.id==id:
+                if aux.proximo is aux.anterior is None:
+                    self.cabeca=None
+                    self.cauda=None
+                    return
+                elif aux.proximo is None:
+                    self.cabeca=aux.proximo
+                    self.cabeca.anterior=None
+                    return
+                elif aux.anterior is None:
+                    self.cauda= aux.anterior
+                    self.cauda.proximo=None
+                    return
+                else:
+                    aux.anterior.proximo=aux.proximo
+                    aux.proximo.anterior=aux.anterior
+                    return
+                aux
+
+
+            aux=aux.proximo
+        print("nao encontrado")
+        return
+    def ligar_desligar(self,id,status):
+        if self.cabeca is None:
+            print("lista vazia")
+            return
+        aux=self.cabeca
+        while aux is not None:
+            if aux.id==id:
+                if status==True:
+                    status= False
+                    return
+                elif status ==False:
+                    status= True
+                    return
+            aux=aux.proximo
+        print("nao encontrado")
+        return
+    def percorrer(self):
+            if self.cabeca is None:
+                print("lista vazia")
+                return
+            aux=self.cabeca
+            while aux is not None:
+                print("-", aux.id,aux.nome,aux.status)
+                aux=aux.proximo
+    def percorrer_tras(self):
+        if self.cabeca is None:
+            print("lista vazia")
+            return
+        aux=self.cauda
+        while aux is not None:
+            print("-", aux.id,aux.nome,aux.status)
+            aux=aux.anterior
+
+
+equipe= listaduplamente()
+
+equipe.inserir(1,"servidorA", True)
+equipe.inserir(2,"servidorB", True)
+equipe.inserir(3,"servidorC", False)
+equipe.percorrer()
+equipe.remover(2)
+equipe.percorrer_tras()
