@@ -1,0 +1,52 @@
+class No:
+    def __init__(self,nome,responsavel):
+        self.nome=nome
+        self.responsavel=responsavel
+        self.proximo=None
+class ListaEncadeada:
+    def __init__(self):
+        self.cabeca=None
+
+    def inserir(self,nome,responsavel):
+        novo =No(nome,responsavel)
+        if self.cabeca is None:
+            self.cabeca=novo
+            return
+        aux=self.cabeca
+        while aux is not None:
+            if aux.proximo is None:
+                aux.proximo=novo
+                return
+            aux=aux.proximo
+    def percorrer(self):
+        if self.cabeca is None:
+            print("lista vazia")
+            return
+        aux=self.cabeca
+        while aux is not None:
+            print("-", aux.nome, aux.responsavel)
+            aux=aux.proximo
+    def remover(self,nome):
+        if self.cabeca is None:
+
+            print("lista vazia")
+            return
+        if self.cabeca.nome==nome:
+            self.cabeca=self.cabeca.proximo
+            return
+        anterior=self.cabeca
+        aux=self.cabeca.proximo
+        while aux is not None:
+            if aux.nome==nome:
+                anterior.proximo=aux.proximo
+                return
+            anterior= aux
+            aux=aux.proximo
+
+equipe= ListaEncadeada()
+equipe.inserir("Planejamento do Produto", "responsavel: Ana")
+equipe.inserir("Implementação do Backend", "(responsável: João)")
+equipe.inserir("Testes Automatizados", "(responsável: Carla)")
+equipe.percorrer()
+equipe.remover("Planejamento do Produto")
+equipe.percorrer()
