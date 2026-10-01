@@ -1,0 +1,168 @@
+class No:
+    def __init__(self,nome,duracao,ambiente,ativo):
+        self.nome=nome
+        self.duracao=duracao
+        self.ambiente=ambiente
+        self.ativo=ativo
+        self.proximo=None
+        self.anterior=None
+class listaCircular:
+    def __init__(self):
+        self.cabeca=None
+        self.cauda=None
+    def inserir(self,nome,duracao,ambiente,ativo):
+        novo= No(nome,duracao,ambiente,ativo)
+        if self.cabeca is None:
+            self.cabeca=novo
+            self.cauda=novo
+            self.cabeca.anterior=self.cauda
+            self.cauda.proximo=self.cabeca
+            return
+        novo.proximo=self.cabeca
+        novo.anterior=self.cauda
+        self.cabeca.anterior=novo
+        self.cauda.proximo=novo
+        self.cabeca=novo
+    def lista_ordem(self):
+        if self.cabeca is None:
+            print("lista vazia")
+            return
+        for ambiente in ["teste","homologacao", "producao"]:
+            aux=self.cabeca
+            while True:
+                if aux.ambiente==ambiente:
+                    print("-",aux.nome,aux.duracao,aux.ambiente,aux.ativo)
+                aux=aux.proximo
+                if aux is self.cabeca:
+                    break
+    def listar_ativos(self,ativo):
+        if self.cabeca is None:
+            print("lista vazia")
+            return
+        aux=self.cabeca
+        while True:
+            if aux.ativo==ativo:
+                if aux.ativo == True:
+                    print("-", aux.nome,aux.duracao,aux.ambiente)
+            aux=aux.proximo
+            if aux is self.cabeca:
+                break
+        print("sem ativo")
+        
+    def tempo(self):
+        soma=0
+        aux=self.cabeca
+        while True:
+            soma +=aux.duracao 
+            aux=aux.proximo
+            if aux is self.cabeca:
+                break
+        print(soma)
+    def ativar(self,nome):
+        if self.cabeca is None:
+            print("lista vazia")
+            return
+        aux=self.cabeca
+        while True:
+            if aux.nome==nome:
+                if aux.ativo== False:
+                    aux.ativo=True
+                    return
+                else:
+                    print("ja esta ativado")
+                    return
+            aux=aux.proximo
+            if aux is self.cabeca:
+                break
+    def desativar(self,nome):
+        if self.cabeca is None:
+            print("lista vazia")
+            return
+        aux=self.cabeca
+        while True:
+            if aux.nome==nome:
+                if aux.ativo==True:
+                    aux.ativo=False
+                    return
+                else:
+                    print("ja esta desativado")
+                    return
+            aux=aux.proximo
+            if aux is self.cabeca:
+                break
+    def remover(self,nome):
+        if self.cabeca is None:
+            print("lista vazia")
+            return
+        aux=self.cabeca
+        while True:
+            if aux.nome==nome:
+                if aux.proximo ==aux:
+                    self.cabeca=None
+
+                    self.cauda=None
+                    return
+                elif aux is self.cabeca:
+                    self.cabeca=self.cabeca.proximo
+                    self.cabeca.anterior=self.cauda
+                    self.cauda.proximo=self.cabeca
+                    return
+                elif aux is self.cauda:
+                    self.cauda=self.cauda.anterior
+                    self.cauda.proximo=self.cabeca
+                    self.cabeca.anterior=self.cauda
+                    return
+                else:
+                    aux.anterior.proximo=aux.proximo
+                    aux.proximo.anterior=aux.anterior
+                    return
+            aux=aux.proximo
+            if aux is self.cabeca:
+                break
+        print("nao encontrado")
+        return
+def menu():
+    print("1- inserir")
+    print("2-listar em ordem")
+    print("3- listar ativos")
+    print("4- tempo total")
+    print("5- ativar")
+    print("6- desativar")
+    print("7excluir")
+    print("8-sair")
+    opcao= int(input("qual opcao"))
+    return opcao
+def main():
+    deploy= listaCircular()
+    opcao =0
+
+    while opcao !=8:
+        opcao = menu()
+        if opcao ==1:
+            nome= input("digite o nome")
+            duracao=int(input("digite o tempo em segundo:"))
+            ambiente= input("digite qual o ambiente(teste, homologação ou produção)").lower()
+            
+            ativo = input("digite True se tiver ativado e False se tiver desativado: ").lower()
+
+            
+            deploy.inserir(nome,duracao,ambiente,ativo)
+        elif opcao ==2:
+            deploy.lista_ordem()
+        elif opcao==3:
+            deploy.listar_ativos()
+        elif opcao==4:
+            deploy.tempo()
+
+        elif opcao==5:
+            deploy.ativar()
+        elif opcao ==6:
+            deploy.desativar()
+        elif opcao==7:
+            nome=input("qual nome deseja excluir:").upper
+            deploy.remover()
+        elif opcao ==8:
+            print("saindo")
+        else:
+            print("opcao invalida")
+main()
