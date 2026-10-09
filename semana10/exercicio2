@@ -1,0 +1,82 @@
+class No:
+    def __init__(self,cliente,preferencia):
+        self.cliente=cliente
+        self.preferencia=preferencia
+        self.proximo=None
+        self.anterior=None
+class Deque:
+    def __init__(self):
+        self.head=None
+        self.tail=None
+    def inserir(self,cliente,preferencia):
+        novo=No(cliente,preferencia)
+        if self.head is None:
+            self.head=self.tail=novo
+            return
+        if preferencia == False:
+            novo.anterior=self.tail
+            self.tail.proximo=novo
+            self.tail=novo
+            return
+        elif preferencia ==True:
+            novo.proximo=self.head
+            self.head.anterior=novo
+            self.head=novo
+            return
+    def atender(self):
+        if self.head is None:
+            print("lista vazia")
+            return
+        if self.head.proximo is None:
+            self.head=self.tail=None
+            return
+        elif self.head.anterior is None:
+            self.head=self.head.proximo
+            self.head.anterior=None
+            return
+    def mostrar(self):
+        if self.head is None:
+            print("deque vazio")
+            return
+        aux=self.head
+        while aux is not None:
+            print("-",aux.cliente, aux.preferencia)
+            aux=aux.proximo
+def menu():
+    print("1 inserir cliente")
+    print("2- atender:")
+    print("3- mostrar fila")   
+    print("4 - sair")
+    opcao = int(input("qual opcao:"))
+    return opcao
+def main():
+    opcao=0
+    deque= Deque() 
+    while opcao !=4:
+        opcao =menu()
+        if opcao ==1:
+            cliente= input("digite o nome")
+
+            prf=int(input("voce é preferencia? digite 1 se for Sim e 2 se for Nao:"))
+            if prf ==1:
+                
+                deque.inserir(cliente, True)
+                deque.mostrar()
+            elif prf ==2:
+                deque.inserir(cliente, False)
+                deque.mostrar()
+            else:
+                print("opcao invalida")
+            
+            
+        elif opcao ==2:
+            deque.atender()
+            deque.mostrar()
+        elif opcao ==3:
+            deque.mostrar()
+        elif opcao ==4:
+            print("saindo")
+        else:
+            print("opcao invalida")
+
+main()
