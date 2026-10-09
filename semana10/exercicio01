@@ -1,0 +1,106 @@
+class No:
+    def __init__(self,chamado):
+        self.chamado=chamado
+        self.proximo=None
+        self.anterior=None
+
+class Deque:
+    def __init__(self):
+        self.head=None  
+        self.tail=None   
+    def inserir_cabeca(self,chamado):
+        novo=No(chamado)
+        if self.head == None:
+            self.head=self.tail=novo
+            return
+        novo.proximo=self.head
+        self.head.anterior=novo
+        self.head=novo
+    def inserir_cauda(self,chamado):
+        novo =  No(chamado)
+        if self.head is None:
+            self.head=self.tail=novo
+            return
+        novo.anterior=self.tail
+        self.tail.proximo=novo
+        self.tail=novo
+    def remover_cabeca(self):
+        if self.head is None:
+            print("deque vazio")
+            return
+        if self.head.proximo is None:
+            self.head = self.tail=None
+            print("cabeca removida, deque vazio")
+            return
+        self.head=self.head.proximo
+        self.head.anterior=None
+    
+    def remover_cauda(self):
+        if self.head is None:
+            print("deque vazio")
+            return
+        if self.tail.anterior is None:
+            self.head=self.tail=None
+            print("cauda removida, deque vazio")
+            return
+       
+        self.tail=self.tail.anterior
+        self.tail.proximo=None
+            
+    def mostrar_cabeca(self):
+        if self.head is None:
+            print("deque vazio")
+            return
+        aux=self.head
+        while aux is not None:
+            print("-", aux.chamado)
+            aux=aux.proximo
+
+    def mostrar_cauda(self):
+        aux= self.tail
+        if self.head is None:
+            print("deque vazio")
+            return
+        while aux is not None:
+            print("-",aux.chamado)
+            aux=aux.anterior
+def menu():
+    print("1- inserir na cabeca")
+    print("2- inserir na cauda")
+    print("3- excluir na cabeca")
+    print("4- excluir na cauda")
+    print("5- mostrar deque pela cabeca")
+   
+    print("6- sair")
+    opcao =int(input("opcao:"))
+    return opcao
+
+def main():
+    opcao =0
+    deque=Deque()
+    while opcao !=7:
+        opcao= menu()
+        if opcao ==1:
+            chamado= int(input("insira o chamado:"))
+            deque.inserir_cabeca(chamado)
+            print("chamado na cabeca:", deque.head.chamado)
+        elif opcao ==2:
+            chamado = int(input("insira o chmado:"))
+            deque.inserir_cauda(chamado)
+            print("chamado na cauda:", deque.tail.chamado)
+        elif opcao ==3:
+            deque.remover_cabeca()
+        elif opcao ==4:
+            deque.remover_cauda()
+        elif opcao ==5:
+            deque.mostrar_cabeca()
+        
+        elif opcao ==6:
+            print("saindoo..")
+        else:
+            print("opcao invalida")
+            
+
+
+main()
+    
