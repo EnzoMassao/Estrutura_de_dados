@@ -78,14 +78,14 @@ def menu():
 def main():
     opcao =0
     deque=Deque()
-    while opcao !=7:
+    while opcao !=6:
         opcao= menu()
         if opcao ==1:
-            chamado= int(input("insira o chamado:"))
+            chamado= input("insira o chamado:")
             deque.inserir_cabeca(chamado)
             print("chamado na cabeca:", deque.head.chamado)
         elif opcao ==2:
-            chamado = int(input("insira o chmado:"))
+            chamado = input("insira o chamado:")
             deque.inserir_cauda(chamado)
             print("chamado na cauda:", deque.tail.chamado)
         elif opcao ==3:
