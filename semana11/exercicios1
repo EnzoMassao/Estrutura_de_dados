@@ -1,8 +1,8 @@
-def numeros_pares(n):
+def contagem(n):
     if n ==1:
         print(n)
         return
     print(n)
-    return numeros_pares(n-1)
-numeros_pares(10)
+    return contagem(n-1)
+contagem(10)
     
