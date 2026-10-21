@@ -1,0 +1,8 @@
+def numeros_pares(n):
+    if n ==1:
+        
+        return
+    if n %2 ==0:
+        print(n)
+    return numeros_pares(n-1)
+numeros_pares(10)
